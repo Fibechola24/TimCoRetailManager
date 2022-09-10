@@ -1,2 +1,2 @@
 # TimCo Retail Manager
-A retail management system by TimCo Enterprise solutions. 
+A retail management system by TimCo Enterprise solutions.. 
