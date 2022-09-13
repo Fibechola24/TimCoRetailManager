@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using TRMDesktopUI.Helpers;
 using TRMDesktopUI.ViewModels;
 
 namespace TRMDesktopUI
@@ -15,6 +17,10 @@ namespace TRMDesktopUI
         public Bootstrapper()
         {
             Initialize();
+            ConventionManager.AddElementConvention<PasswordBox>(
+            PasswordBoxHelper.BoundPasswordProperty,
+            "Password",
+            "PasswordChanged");
         }
 
         protected override void Configure()
@@ -22,7 +28,8 @@ namespace TRMDesktopUI
             _container.Instance(_container);
             _container
                 .Singleton<IWindowManager, WindowManager>()
-                .Singleton<IEventAggregator, EventAggregator>();
+                .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<IAPIHelper, APIHelper>();
             //below for our view model to connect to the views by reflection
 
             GetType().Assembly.GetTypes()
@@ -34,7 +41,7 @@ namespace TRMDesktopUI
         }
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            DisplayRootViewForAsync<ShellViewModel>();
+            DisplayRootViewFor<ShellViewModel>();
         }
 
 
